@@ -1,5 +1,8 @@
 ///<reference types = "Cypress"/>
 
+// import data iz faila params.json
+import { data } from '../fixtures/params.json'
+
 describe('The flight tab test will verify the flights functionality', () => {
     // ispolzovanie peremennoj zakrepiv ee v const
     const flights_tab = '[data-cy="Flight"]'
@@ -66,13 +69,27 @@ describe('The flight tab test will verify the flights functionality', () => {
     //     cy.get(checkout).type("10/10/2026").invoke('val').should('eq', '10/10/2026');
     // })
 
-    it('check radio buttons', () => {
-        // proverka nagatiya radio knopok i perexoda to4e4ki s ispolzovaniem CONST
-        cy.get(business_radio_button).click().should('be.checked')
-        cy.get(economy_radio_button).click().should('be.checked')
-        cy.get(f_class_radio_button).click().should('be.checked')
+    // it('check radio buttons', () => {
+    //     // proverka nagatiya radio knopok i perexoda to4e4ki s ispolzovaniem CONST
+    //     cy.get(business_radio_button).click().should('be.checked')
+    //     cy.get(economy_radio_button).click().should('be.checked')
+    //     cy.get(f_class_radio_button).click().should('be.checked')
+    // })
+
+    it('populates origin and destination with data from params.json', () => {
+        // ispolzovanie data iz faila params.json i cikla dlya zapolneniya po o4eredi
+        data.forEach(element => {
+            // // ispolzovanie screenshot v ykazannom meste
+            // cy.viewport(800, 600)
+            // cy.screenshot("test1")
+
+            cy.get(origin_placeholder).clear().type(element.from).invoke("val").should('eq', element.from)
+            cy.get(destination_placeholder).clear().type(element.to).invoke("val").should('eq', element.to)
+
+            // // ispolzovanie comandi pause
+            // cy.pause();
+        })
+
     })
-
-
 
 })
